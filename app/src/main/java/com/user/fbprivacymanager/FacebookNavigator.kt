@@ -1,4 +1,4 @@
-package com.feroz.fbprivacymanager
+package com.user.fbprivacymanager
 
 import android.content.Context
 import android.content.Intent

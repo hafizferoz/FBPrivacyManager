@@ -1,4 +1,4 @@
-package com.feroz.fbprivacymanager
+package com.user.fbprivacymanager
 
 import android.accessibilityservice.AccessibilityService
 import android.view.accessibility.AccessibilityEvent

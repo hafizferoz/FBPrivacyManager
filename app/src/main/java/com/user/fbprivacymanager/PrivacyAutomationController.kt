@@ -1,4 +1,4 @@
-package com.feroz.fbprivacymanager
+package com.user.fbprivacymanager
 
 object PrivacyAutomationController {
     @Volatile
