@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "com.feroz.fbprivacymanager"
+    namespace = "com.user.fbprivacymanager"
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.feroz.fbprivacymanager"
+        applicationId = "com.user.fbprivacymanager"
         minSdk = 29
         targetSdk = 35
         versionCode = 1
