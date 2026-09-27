@@ -1,0 +1,49 @@
+workflows:
+  android-debug:
+    name: FB Privacy Manager - Debug APK
+    max_build_duration: 60
+    instance_type: linux_x2
+    scripts:
+      - name: Set Android SDK location
+        script: |
+          echo "sdk.dir=$ANDROID_SDK_ROOT" > "$CM_BUILD_DIR/local.properties"
+      - name: Install Gradle
+        script: |
+          set -e
+          GRADLE_VERSION=8.10.2
+          mkdir -p "$CM_BUILD_DIR/.gradle-dist"
+          if [ ! -x "$CM_BUILD_DIR/.gradle-dist/gradle-$GRADLE_VERSION/bin/gradle" ]; then
+            curl -fsSL "https://services.gradle.org/distributions/gradle-$GRADLE_VERSION-bin.zip" -o "$CM_BUILD_DIR/.gradle-dist/gradle.zip"
+            unzip -q "$CM_BUILD_DIR/.gradle-dist/gradle.zip" -d "$CM_BUILD_DIR/.gradle-dist"
+          fi
+          "$CM_BUILD_DIR/.gradle-dist/gradle-$GRADLE_VERSION/bin/gradle" --version
+      - name: Build debug APK
+        script: |
+          set -e
+          "$CM_BUILD_DIR/.gradle-dist/gradle-8.10.2/bin/gradle" --no-daemon assembleDebug
+    artifacts:
+      - app/build/outputs/apk/debug/app-debug.apk
+
+  android-release-unsigned:
+    name: FB Privacy Manager - Release APK (unsigned)
+    max_build_duration: 60
+    instance_type: linux_x2
+    scripts:
+      - name: Set Android SDK location
+        script: |
+          echo "sdk.dir=$ANDROID_SDK_ROOT" > "$CM_BUILD_DIR/local.properties"
+      - name: Install Gradle
+        script: |
+          set -e
+          GRADLE_VERSION=8.10.2
+          mkdir -p "$CM_BUILD_DIR/.gradle-dist"
+          if [ ! -x "$CM_BUILD_DIR/.gradle-dist/gradle-$GRADLE_VERSION/bin/gradle" ]; then
+            curl -fsSL "https://services.gradle.org/distributions/gradle-$GRADLE_VERSION-bin.zip" -o "$CM_BUILD_DIR/.gradle-dist/gradle.zip"
+            unzip -q "$CM_BUILD_DIR/.gradle-dist/gradle.zip" -d "$CM_BUILD_DIR/.gradle-dist"
+          fi
+      - name: Build release APK
+        script: |
+          set -e
+          "$CM_BUILD_DIR/.gradle-dist/gradle-8.10.2/bin/gradle" --no-daemon assembleRelease
+    artifacts:
+      - app/build/outputs/apk/release/app-release-unsigned.apk
