@@ -1,11 +1,16 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id("org.jetbrains.kotlin.plugin.compose")
 }
 
 android {
     namespace = "com.user.fbprivacymanager"
     compileSdk = 35
+
+    buildFeatures {
+        compose = true
+    }
 
     defaultConfig {
         applicationId = "com.user.fbprivacymanager"
