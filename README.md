@@ -14,10 +14,13 @@ Facebook's UI changes frequently and can differ by:
 - language
 - accessibility implementation
 
-Therefore the included service is a **safe automation skeleton**, not a promise
-that it will work unchanged against every Facebook release.
+Therefore the included service is a **conservative one-post-at-a-time helper**,
+not a bulk processor or a promise that it will work unchanged against every
+Facebook release. It stops after one visible post; bulk traversal and progress
+tracking across a complete history are not implemented.
 
 It never asks for or stores a Facebook password, access token, or cookies.
+
 
 ## Build
 
@@ -52,21 +55,25 @@ The exact menu names vary by phone manufacturer.
 
 1. Enable the service.
 2. Keep **Dry Run** enabled.
-3. Open Facebook.
+3. Tap **Open Facebook**. The app opens Facebook if installed, otherwise it
+	opens facebook.com in an available browser. Sign in only on Facebook.
 4. Navigate manually to Activity Log → Your posts.
-5. Start the utility.
-6. Confirm that it identifies the expected visible controls.
-7. Only after verifying the UI flow should write mode be considered.
+5. Return to FB Privacy Manager and tap **Start**.
+6. Switch back to Facebook and keep Your posts in the foreground.
+7. Check **Recent activity** in the manager for detection and status messages.
+8. Confirm the dry-run behavior before turning Dry Run off. Write mode handles
+	one visible post and stops; verify the result in Facebook before proceeding.
 
 ## Safety behavior
 
 The service:
 - only responds while explicitly started
-- only responds to Facebook's package
+- only responds to Facebook or a recognized browser displaying Facebook
 - uses accessibility node text/content descriptions
 - does not blind-tap screen coordinates
 - stops if an expected privacy control cannot be positively identified
 - supports a dry-run mode
+- keeps a local, limited recent-activity log (without post text or credentials)
 - does not collect credentials
 
 ## Production improvements

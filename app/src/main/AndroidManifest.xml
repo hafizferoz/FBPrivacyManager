@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <queries>
+        <package android:name="com.facebook.katana" />
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+            <data android:scheme="https" />
+        </intent>
+    </queries>
+
     <application
         android:allowBackup="false"
         android:label="FB Privacy Manager"
@@ -18,7 +26,7 @@
 
         <service
             android:name=".PrivacyAccessibilityService"
-            android:exported="false"
+            android:exported="true"
             android:label="FB Privacy Manager Accessibility"
             android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE">
             <intent-filter>
